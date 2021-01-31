@@ -8,6 +8,13 @@ app.use(bodyParser.json());
 
 app.use('/api/v1', routes);
 
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    success: false,
+    error: 'Unknown error'
+  });
+});
+
 app.listen(3000, () => {
   console.log('API is ready!');
 });
