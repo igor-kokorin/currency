@@ -1,4 +1,4 @@
-const { currency } = require('../../../db/models');
+const { currency, sequelize, Sequelize } = require('../../../db/models');
 const moment = require('moment');
 const CurrecyFreaks = require('../../../lib/currency_freaks');
 
@@ -15,19 +15,24 @@ class Currency {
     if (!todayCurrencyRate) {
       const cf = new CurrecyFreaks();
   
-      const rates = await cf.getCurrentRates();
+      const { date: ratesDate, rates } = await cf.getCurrentRates();
 
-      await currency.bulkCreate(
-        Object.entries(rates).reduce((acc, curr) => {
-          acc.push({
-            name: curr[0],
-            rate: curr[1],
-            date
-          });
+      const ratesArr = Object.entries(rates).reduce((acc, curr) => {
+        acc.push({
+          name: curr[0],
+          rate: curr[1]
+        });
 
-          return acc;
-        }, [])
-      );
+        return acc;
+      }, []);
+
+      await sequelize.query(`
+        INSERT INTO currencies (date, name, rate, "createdAt", "updatedAt")
+        VALUES ${ratesArr.map(rate => `('${ratesDate}', '${rate.name}', ${rate.rate}, NOW(), NOW())`).join(',')}
+        ON CONFLICT (date, name) DO UPDATE SET rate = EXCLUDED.rate, "updatedAt" = NOW();
+      `, {
+        type: Sequelize.QueryTypes.INSERT
+      });
     }
 
     return true;

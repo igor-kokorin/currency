@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const HttpErrors = require('http-errors');
-const { validationResult } = require('express-validator');
 
 const app = express();
 
@@ -28,6 +27,8 @@ app.use((err, req, res, next) => {
 
     return 
   }
+
+  console.error(err.message);
 
   res.status(500).json({
     success: false,
