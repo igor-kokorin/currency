@@ -10,6 +10,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'currency_development',
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   test: {
@@ -17,6 +18,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'currency_test',
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   production: {
@@ -24,6 +26,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'currency_production',
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   }
 }

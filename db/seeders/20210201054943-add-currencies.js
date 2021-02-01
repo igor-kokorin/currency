@@ -9,7 +9,7 @@ module.exports = {
       for (const date = moment().startOf('year'); date < moment(); date.add(1, 'day')) {
         currencies.push({
           name: currency,
-          rate: Math.random() * 20 + 50,
+          rate: currency === 'USD' ? 1 : Math.random() * 20 + 50,
           date: date.format('YYYY-MM-DD')
         });
       }

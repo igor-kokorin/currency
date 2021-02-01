@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js -- -r dotenv/config",
+    "init": "(npx sequelize db:create 2>/dev/null || exit 0) && npx sequelize db:migrate && (npx sequelize db:seed:all 2>/dev/null || exit 0)",
+    "start": "node -r dotenv/config index.js",
+    "start:dev": "nodemon index.js -- -r dotenv/config",
     "generate:token": "node ./scripts/generate_token.js"
   },
   "author": "Igor Kokorin",
