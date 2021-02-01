@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const HttpErrors = require('http-errors');
+const ValidationError = require('./routes/errors/validation');
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 app.use('/api/v1', routes);
 
 app.use((err, req, res, next) => {
-  if (err.errors) {
+  if (err instanceof ValidationError) {
     res.status(400).json({
       success: false,
       errors: err.errors
