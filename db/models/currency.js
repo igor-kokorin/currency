@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     rate: {
       type: DataTypes.NUMERIC,
-      allowNull: false
+      allowNull: false,
+      get() {
+        return Number(this.getDataValue('rate'));
+      }
     }
   }, {
     sequelize,
