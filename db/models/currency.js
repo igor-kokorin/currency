@@ -2,6 +2,8 @@ const {
   Model
 } = require('sequelize');
 
+const consts = require('../../consts');
+
 module.exports = (sequelize, DataTypes) => {
   class currency extends Model {
     /**
@@ -17,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   currency.init({
     name: {
       type: DataTypes.ENUM({
-        values: [ 'RUB', 'EUR', 'USD', 'JPY' ]
+        values: consts.currencies
       }),
       allowNull: false
     },
