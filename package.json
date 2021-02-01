@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init": "(npx sequelize db:create 2>/dev/null || exit 0) && npx sequelize db:migrate && (npx sequelize db:seed:all 2>/dev/null || exit 0)",
-    "start": "node -r dotenv/config index.js",
+    "start" : "npm run start:app && npm run start:update_currencies",
+    "start:app": "node -r dotenv/config index.js",
+    "start:update_currencies": "node -r dotenv/config update_currencies.js",
     "start:dev": "nodemon index.js -- -r dotenv/config",
     "generate:token": "node ./scripts/generate_token.js"
   },

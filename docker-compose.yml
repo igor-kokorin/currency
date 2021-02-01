@@ -8,6 +8,10 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - 9999:5432
+    networks:
+      - backend
   app:
     container_name: currency-app
     build:
@@ -15,7 +19,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - ${PORT}:${PORT}
-    links:
-      - db:db
+    networks:
+      - backend
     depends_on:
       - db
+
+networks:
+  backend:
+    driver: bridge
