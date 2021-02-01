@@ -2,7 +2,7 @@ const { currency } = require('../../db/models');
 const moment = require('moment');
 const CurrecyFreaks = require('../../lib/currency_freaks');
 
-class GetForDate {
+class GetRatesForDate {
   static async execute (date) {
     if (!date) {
       throw new Error('date is required');
@@ -50,4 +50,4 @@ class GetForDate {
   }
 }
 
-module.exports = GetForDate;
+module.exports = GetRatesForDate;
